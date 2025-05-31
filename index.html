@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>hiroaki okayama - Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #1e3a8a;
+            --secondary-color: #3b82f6;
+            --accent-color: #f97316;
+            --text-color: #1f2937;
+            --light-bg: #f8fafc;
+            --white: #ffffff;
+            --gray: #6b7280;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            height: 100%;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            overflow-x: hidden;
+            min-height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ヒーローセクション */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            background-image: url(img/IMG_2512.JPG);
+            background-size: 150%;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            text-align: center;
+            color: var(--white);
+            position: relative;
+            z-index: 1;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .profile-img {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            border: 5px solid var(--white);
+            margin-bottom: 30px;
+            object-fit: cover;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .hero .subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            opacity: 0;
+            animation: typewriter 3s ease-out 0.5s forwards;
+        }
+
+        .hero .description {
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            opacity: 0.9;
+        }
+
+        .scroll-down {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            cursor: pointer;
+            animation: bounce 2s infinite;
+        }
+
+        .scroll-down svg {
+            width: 30px;
+            height: 30px;
+            fill: var(--white);
+        }
+
+        /* セクション共通スタイル */
+        section {
+            padding: 80px 0;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s, transform 0.6s;
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        section:nth-child(even) {
+            background-color: var(--light-bg);
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--primary-color);
+            position: relative;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: var(--accent-color);
+            border-radius: 2px;
+        }
+
+        /* About Me セクション */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .about-image {
+            text-align: center;
+        }
+
+        .about-image img {
+            width: 100%;
+            max-width: 400px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .about-text h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+
+        .timeline {
+            margin-top: 30px;
+            position: relative;
+            padding-left: 30px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--secondary-color);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 20px;
+            padding-left: 20px;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -35px;
+            top: 5px;
+            width: 12px;
+            height: 12px;
+            background: var(--accent-color);
+            border-radius: 50%;
+        }
+
+        /* Skills セクション */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .skill-category {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .skill-category:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .skill-category h3 {
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+
+        .skill-item {
+            margin-bottom: 15px;
+        }
+
+        .skill-item .skill-name {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+
+        .skill-bar {
+            height: 8px;
+            background: #e5e7eb;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .skill-progress {
+            height: 100%;
+            background: linear-gradient(90deg, var(--secondary-color), var(--accent-color));
+            border-radius: 4px;
+            width: 0;
+            transition: width 1.5s ease-out;
+        }
+
+        /* Qualifications セクション */
+        .qualifications-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .qualification-card {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: transform 0.3s;
+        }
+
+        .qualification-card:hover {
+            transform: scale(1.05);
+        }
+
+        .qualification-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 20px;
+            background: var(--secondary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: var(--white);
+        }
+
+        .qualification-card.highlight {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--white);
+        }
+
+        /* Works セクション */
+        .work-showcase {
+            background: var(--white);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+
+        .work-images {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+            padding: 30px;
+            background: var(--light-bg);
+        }
+
+        .work-image-main, .work-image-mobile {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .work-image-main img, .work-image-mobile img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .work-details {
+            padding: 40px;
+        }
+
+        .work-details h3 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .tech-tag {
+            background: var(--secondary-color);
+            color: var(--white);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+
+        .work-features {
+            list-style: none;
+            margin: 20px 0;
+        }
+
+        .work-features li {
+            padding: 10px 0;
+            padding-left: 30px;
+            position: relative;
+        }
+
+        .work-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: var(--accent-color);
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 30px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            margin-top: 20px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(249, 115, 22, 0.3);
+        }
+
+        /* Experience セクション */
+        .experience-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 30px;
+            background: var(--white);
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--accent-color);
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            color: var(--gray);
+            margin-top: 10px;
+        }
+
+        .experience-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .experience-card {
+            padding: 30px;
+            background: var(--white);
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        .experience-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+
+        /* Strengths セクション */
+        .strengths-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .strength-item {
+            text-align: center;
+            padding: 40px 30px;
+            background: var(--white);
+            border-radius: 15px;
+            box-shadow: 0 5px 30px rgba(0,0,0,0.08);
+            transition: transform 0.3s;
+        }
+
+        .strength-item:hover {
+            transform: translateY(-10px);
+        }
+
+        .strength-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, var(--secondary-color), var(--accent-color));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            color: var(--white);
+        }
+
+        .strength-item h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+
+        /* Contact セクション */
+        .contact-content {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact-content p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .contact-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px 30px;
+            background: var(--white);
+            border-radius: 30px;
+            text-decoration: none;
+            color: var(--primary-color);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .contact-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        /* アニメーション */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes typewriter {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0) translateX(-50%);
+            }
+            40% {
+                transform: translateY(-10px) translateX(-50%);
+            }
+            60% {
+                transform: translateY(-5px) translateX(-50%);
+            }
+        }
+
+        /* レスポンシブデザイン */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero .subtitle {
+                font-size: 1.2rem;
+            }
+
+            h2 {
+                font-size: 2rem;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .timeline {
+                padding-left: 20px;
+            }
+
+            .work-images {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-links {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .stat-number {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            section {
+                padding: 60px 0;
+            }
+
+            .container {
+                padding: 0 15px;
+            }
+
+            .profile-img {
+                width: 150px;
+                height: 150px;
+            }
+        }
+    </style>
+    <link rel="icon" href="icons/favicon.ico">
+</head>
+<body>
+    <!-- ヒーローセクション -->
+    <div class="hero">
+        <div class="hero-content">
+            <h1 style="font-weight: bold; font-style: italic; font-family: Times New Roman;">Hiroaki Okayama's Portfolio</h1>
+            <p class="subtitle">銀河鉄道のレールを敷くような、"ワクワク" するチャレンジで "誰か" の人生を豊かにする</p>
+            <p class="description">
+                10年以上のシステム開発経験と、AIベンチャーでの多角的な業務経験を活かし、<br>
+                社会に必要とされるサービスの創出を目指しています。
+            </p>
+        </div>
+        <div class="scroll-down">
+            <svg viewBox="0 0 24 24" width="30" height="30">
+                <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/>
+            </svg>
+        </div>
+    </div>
+
+    <!-- About Me セクション -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2>About Me</h2>
+            <div class="about-content">
+                <div class="about-image">
+                    <img src="img/img_profile.jpg" alt="岡山博明の写真" style="width: 200px; height: 200px; background: rgba(255,255,255,0.2); border-radius: 50%; margin: 0 auto 30px; display: flex; align-items: center; justify-content: center; font-size: 60px; color: white; border: 5px solid white; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
+                    <h1>岡山 博明 (Hiroaki Okayama)</h1>
+                </div>
+                <div class="about-text">
+                    <h3>社会に必要とされるサービスを創る</h3>
+                    <p>
+                        バックエンドを中心にフルスタックエンジニアとして培った確実な技術力と、AIベンチャーでの経験で得た
+                        ビジネス視点・スピード感を組み合わせ、真に価値のあるサービス開発に取り組んでいます。
+                    </p>
+                    <p>
+                        特にAIベンチャーでの経験は、技術者としてだけでなく、
+                        営業・マーケティング・プロダクト開発まで幅広い視野を持つきっかけとなりました。
+                    </p>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <strong>2015年〜</strong> 株式会社セックでエンジニアとしてのキャリアをスタート
+                        </div>
+                        <div class="timeline-item">
+                            <strong>2017年〜</strong> 株式会社システナに入社
+                        </div>
+                        <div class="timeline-item">
+                            <strong>2021年〜</strong> 株式会社オージス総研に入社
+                        </div>
+                        <div class="timeline-item">
+                            <strong>2024年</strong> 株式会社データグリッドへ1年間出向
+                        </div>
+                        <div class="timeline-item">
+                            <strong>2025年〜</strong> オージス総研AI事業部で新たな挑戦
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills セクション -->
+    <section id="skills" class="skills">
+        <div class="container">
+            <h2>Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3>プログラミング言語</h3>
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>Python</span>
+                            <span>実績多数</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 100%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>Java</span>
+                            <span>実績多数</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 85%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>C#</span>
+                            <span>実務経験あり</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 70%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>JavaScript</span>
+                            <span>実務経験あり</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 80%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h3>フレームワーク</h3>
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>Flask</span>
+                            <span>実績多数</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 100%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>FastAPI</span>
+                            <span>実務経験あり</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 85%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>Spring Framework</span>
+                            <span>実務経験あり</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 80%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>Next.js</span>
+                            <span>実務経験あり</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 70%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h3>クラウド/ツール</h3>
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>Azure</span>
+                            <span>構築経験あり</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 80%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>GCP</span>
+                            <span>構築経験あり</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 80%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>Docker</span>
+                            <span>実績多数</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 100%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>PostgreSQL</span>
+                            <span>実績多数</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 100%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h3>AI・データ分析</h3>
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>LLM</span>
+                            <span>開発経験あり</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 70%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>機械学習</span>
+                            <span>実務経験あり</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 50%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>画像処理</span>
+                            <span>実務経験あり</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 50%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Qualifications セクション -->
+    <section id="qualifications" class="qualifications">
+        <div class="container">
+            <h2>Qualifications</h2>
+            <div class="qualifications-grid">
+                <div class="qualification-card">
+                    <div class="qualification-icon">📊</div>
+                    <h3>応用情報技術者</h3>
+                    <p>2016 年 7 月</p>
+                </div>
+                <div class="qualification-card">
+                    <div class="qualification-icon">🤖</div>
+                    <h3>ディープラーニングG検定</h3>
+                    <p>2017 年 12 月</p>
+                </div>
+                <div class="qualification-card">
+                    <div class="qualification-icon">🖥️</div>
+                    <h3>Python3 エンジニア認定基礎試験</h3>
+                    <p>2018 年 7 月</p>
+                </div>
+                <div class="qualification-card">
+                    <div class="qualification-icon">🏆</div>
+                    <h3>システムアーキテクト</h3>
+                    <p>高度情報処理技術者試験</p>
+                    <p>2018 年 12 月</p>
+                </div>
+                <div class="qualification-card">
+                    <div class="qualification-icon">💾</div>
+                    <h3>データベーススペシャリスト</h3>
+                    <p>高度情報処理技術者試験</p>
+                    <p>2019 年 6 月</p>
+                </div>
+                <div class="qualification-card">
+                    <div class="qualification-icon">🔐</div>
+                    <h3>情報処理安全確保支援士</h3>
+                    <p>高度情報処理技術者試験</p>
+                    <p>2019 年 12 月</p>
+                </div>
+                <div class="qualification-card">
+                    <div class="qualification-icon">🖥️</div>
+                    <h3>Oracle Certified Java Programmer, Silver SE 11</h3>
+                    <p>2020 年 8 月</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Works セクション -->
+    <section id="works" class="works">
+        <div class="container">
+            <h2>Works</h2>
+            <div class="work-showcase">
+                <div class="work-images">
+                    <div class="work-image-main">
+                        <div style="width: 100%; height: 100%; min-height: 300px; background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 24px; text-align: center; padding: 20px;">
+                            <img src="img/img_site_01.png" alt="サイト画像1">
+                        </div>
+                    </div>
+                    <div class="work-image-mobile">
+                        <div style="width: 100%; height: 100%; min-height: 300px; background: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 20px; text-align: center; padding: 20px;">
+                            <img src="img/img_site_02.png" alt="サイト画像2">
+                        </div>
+                    </div>
+                </div>
+                <div class="work-details">
+                    <h3><img src="icons/favicon.ico" />プロ野球データパーク</h3>
+                    <p>プロ野球の詳細なデータを可視化できるWebサービスの開発・運営</p>
+                    <div class="tech-stack">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">Flask</span>
+                        <span class="tech-tag">MySQL</span>
+                        <span class="tech-tag">JavaScript</span>
+                        <span class="tech-tag">Chart.js</span>
+                    </div>
+                    <ul class="work-features">
+                        <li>リアルタイムデータ収集・更新システムの構築</li>
+                        <li>わかりやすく、読みやすさを追求したデザイン</li>
+                        <li>レスポンシブデザインでPC・スマホ両対応</li>
+                        <li>他にはない切り口で分析したデータの公開</li>
+                    </ul>
+                    <a href="https://baseball-datapark.skr.jp/" class="btn" target="_blank">Visit Site →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Strengths セクション -->
+    <section id="strengths" class="strengths">
+        <div class="container">
+            <h2>Strengths</h2>
+            <div class="strengths-grid">
+                <div class="strength-item">
+                    <div class="strength-icon">🔗</div>
+                    <h3>技術×ビジネスの掛け算</h3>
+                    <p>エンジニアリングの深い理解とビジネス感覚を併せ持ち、技術的価値を事業価値に変換。両方の視点から最適なソリューションを提案できます。</p>
+                </div>
+                <div class="strength-item">
+                    <div class="strength-icon">🎯</div>
+                    <h3>顧客課題の本質を捉える力</h3>
+                    <p>表面的な要望の背後にある真のニーズを見抜き、創造的な解決策を提案。SIerでの経験で培った深い顧客理解力。</p>
+                </div>
+                <div class="strength-item">
+                    <div class="strength-icon">🚀</div>
+                    <h3>チームを巻き込む推進力</h3>
+                    <p>「みんながハッピーになる」を軸に、チーム全体のモチベーションを高めながらプロジェクトを推進。高い熱量と実行力で成果を創出。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact セクション -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2>Contact</h2>
+            <div class="contact-content">
+                <p>新しいプロジェクトや協業のご相談、技術的なディスカッションなど、<br>お気軽にお問い合わせください。</p>
+                <div class="contact-links">
+                    <a href="mailto:okka0127@gmail.com" class="contact-link">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                        </svg>
+                        Email
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // スクロールアニメーション
+        function handleScroll() {
+            const sections = document.querySelectorAll('section');
+            
+            sections.forEach(section => {
+                const sectionTop = section.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (sectionTop < windowHeight * 0.8) {
+                    section.classList.add('visible');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', handleScroll);
+        window.addEventListener('load', handleScroll);
+
+        // スムーススクロール
+        document.querySelector('.scroll-down').addEventListener('click', () => {
+            document.getElementById('about').scrollIntoView({ behavior: 'smooth' });
+        });
+
+        // スキルバーアニメーション
+        function animateSkillBars() {
+            const skillBars = document.querySelectorAll('.skill-progress');
+            
+            skillBars.forEach(bar => {
+                const barTop = bar.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (barTop < windowHeight * 0.9 && !bar.classList.contains('animated')) {
+                    bar.classList.add('animated');
+                    const width = bar.style.width;
+                    bar.style.width = '0';
+                    setTimeout(() => {
+                        bar.style.width = width;
+                    }, 100);
+                }
+            });
+        }
+
+        window.addEventListener('scroll', animateSkillBars);
+
+        // カウントアップアニメーション
+        function animateNumbers() {
+            const numbers = document.querySelectorAll('.stat-number');
+            
+            numbers.forEach(number => {
+                const numberTop = number.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (numberTop < windowHeight * 0.9 && !number.classList.contains('animated')) {
+                    number.classList.add('animated');
+                    const target = parseInt(number.getAttribute('data-target'));
+                    const duration = 2000;
+                    const increment = target / (duration / 16);
+                    let current = 0;
+                    
+                    const timer = setInterval(() => {
+                        current += increment;
+                        if (current >= target) {
+                            current = target;
+                            clearInterval(timer);
+                        }
+                        number.textContent = Math.floor(current);
+                    }, 16);
+                }
+            });
+        }
+
+        window.addEventListener('scroll', animateNumbers);
+    </script>
+</body>
+</html>
